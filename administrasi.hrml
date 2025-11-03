@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi - Indonesia Binawa Job</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-logo img {
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 4px;
+            background-color: white;
+            padding: 5px;
+        }
+        
+        .header-title {
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .header-title p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* Content Container */
+        .content-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            color: #003366;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: #003366;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+        
+        .section-title i {
+            margin-right: 8px;
+            color: #003366;
+        }
+        
+        .policy-content {
+            margin-bottom: 20px;
+        }
+        
+        .policy-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .policy-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .policy-content li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background-color: #f0f7ff;
+            border-left: 4px solid #003366;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box h4 {
+            color: #003366;
+            margin-bottom: 10px;
+        }
+        
+        .payment-info {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .payment-info h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        /* Button Styles */
+        .btn-next {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto 0;
+            text-align: center;
+        }
+        
+        .btn-next:hover {
+            background-color: #002244;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 51, 102, 0.3);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .payment-details {
+            margin: 20px 0;
+        }
+        
+        .payment-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #003366;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .payment-code {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .copy-btn:hover {
+            background-color: #002244;
+        }
+        
+        .countdown {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #ffebee;
+            border-radius: 8px;
+            color: #c62828;
+            font-weight: 600;
+        }
+        
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-print {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .btn-print:hover {
+            background-color: #218838;
+        }
+        
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+        
+        .warning-message {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-message i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 13px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 10px;
+            }
+            
+            .header-logo img {
+                height: 35px;
+            }
+            
+            .header-title h1 {
+                font-size: 16px;
+            }
+            
+            .header-title p {
+                font-size: 11px;
+            }
+            
+            .content-container {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+            
+            .payment-amount {
+                font-size: 20px;
+            }
+            
+            .payment-code {
+                font-size: 16px;
+                padding: 12px;
+            }
+            
+            .countdown-timer {
+                font-size: 20px;
+            }
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-logo">
+                    <img src="https://www.ojk.go.id/id/kanal/berita-dan-kegiatan/PublishingImages/Pages/Logo-OJK/Logo-OJK.png" alt="Logo OJK">
+                </div>
+                <div class="header-title">
+                    <h1>INDONESIA BINAWA JOB</h1>
+                    <p>Penyalur Tenaga Kerja Luar Negeri Resmi</p>
+                </div>
+                <div class="header-logo">
+                    <img src="https://z-cdn-media.chatglm.cn/files/e163c1c9-6148-44fd-8a17-5e911376fef6_Logo_Universitas_Binawan.png?auth_key=1762166525-ec89e3bcb6d04064ba18d080f4d35166-0-b5820783e2c4827525a2f92e7af3f270" alt="Logo Binawa">
+                </div>
+            </div>
+        </header>
+        
+        <div class="content-container">
+            <h2 class="section-title">
+                <i class="fas fa-file-contract"></i> Kebijakan Administrasi
+            </h2>
+            
+            <div class="policy-content">
+                <h3>Persiapan Kesehatan Kerja Luar Negeri</h3>
+                <p>Sebelum bekerja di luar negeri, ada beberapa persiapan kesehatan yang harus dipenuhi dan dipertimbangkan secara matang. Kesehatan adalah aspek terpenting yang akan menunjang kinerja Anda selama di negara tujuan.</p>
+                
+                <ul>
+                    <li><strong>Pemeriksaan Kesehatan Lengkap</strong> - Meliputi pemeriksaan fisik, darah, urine, rontgen, dan tes HIV/AIDS yang harus dilakukan di rumah sakit atau klinik yang ditunjuk.</li>
+                    <li><strong>Vaksinasi</strong> - Beberapa negara mewajibkan vaksinasi tertentu seperti hepatitis B, influenza, atau vaksin lain sesuai ketentuan negara tujuan.</li>
+                    <li><strong>Sertifikat Kesehatan</strong> - Anda harus memiliki surat keterangan sehat yang masih berlaku dan diterbitkan oleh instansi kesehatan resmi.</li>
+                    <li><strong>Asuransi Kesehatan</strong> - Memiliki asuransi kesehatan yang mencakup perawatan medis di negara tujuan selama masa kontrak kerja.</li>
+                    <li><strong>Kesiapan Fisik dan Mental</strong> - Pastikan kondisi fisik dan mental Anda prima untuk menghadapi perbedaan budaya, iklim, dan beban kerja yang mungkin berbeda.</li>
+                </ul>
+                
+                <p>Persiapan kesehatan ini sangat penting karena sebagian besar negara penempatan memiliki standar kesehatan yang ketat bagi tenaga kerja asing. Jika ditemukan kondisi kesehatan yang tidak memenuhi syarat, Anda berisiko dipulangkan atau tidak diterima bekerja.</p>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-info-circle"></i> Informasi Penting</h4>
+                    <p>Hasil pemeriksaan kesehatan Anda akan menjadi salah satu dokumen penting yang akan diserahkan kepada pihak berwenang di negara tujuan. Pastikan semua dokumen kesehatan Anda valid dan dapat dipertanggungjawabkan.</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title">
+                <i class="fas fa-money-bill-wave"></i> Kebijakan Pembayaran
+            </h2>
+            
+            <div class="payment-info">
+                <h4><i class="fas fa-exclamation-triangle"></i> Informasi Pembayaran</h4>
+                <p>Penjelasan pembayaran ini sudah ditetapkan dan disetujui oleh Ketua PT Binawa khusus untuk calon tenaga kerja laki-laki.</p>
+                <p>Total biaya administrasi sebesar <strong>Rp 20.000.000</strong> dengan ketentuan:</p>
+                <ul>
+                    <li><strong>Rp 10.000.000</strong> dapat dibayarkan secara langsung</li>
+                    <li><strong>Rp 10.000.000</strong> dapat dibayar dengan cara dipotong setiap bulan dari gaji sebesar <strong>Rp 2.000.000</strong></li>
+                </ul>
+                <p>Untuk pembayaran awal sebesar Rp 10.000.000, silahkan ikuti petunjuk yang diberikan setelah Anda menekan tombol "Berikutnya" di bawah ini.</p>
+            </div>
+            
+            <div class="warning-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Pastikan Anda telah membaca dan memahami semua kebijakan sebelum melanjutkan ke proses pembayaran.</p>
+            </div>
+            
+            <button class="btn-next" id="showPaymentBtn">Berikutnya</button>
+        </div>
+        
+        <div class="footer">
+            © 2025 Indonesia Binawa Job – Terdaftar dan diawasi oleh OJK & BP2MI
+        </div>
+    </div>
+    
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="section-title">
+                <i class="fas fa-credit-card"></i> Detail Pembayaran
+            </h2>
+            
+            <div class="payment-details">
+                <p>Silahkan lakukan pembayaran sebesar:</p>
+                <div class="payment-amount">Rp 2.003.500</div>
+                
+                <p>Kode Pembayaran:</p>
+                <div class="payment-code" id="paymentCode">
+                    48456374639957398
+                    <button class="copy-btn" id="copyCodeBtn">Salin</button>
+                </div>
+                
+                <div class="countdown">
+                    <p>Batas Waktu Pembayaran:</p>
+                    <div class="countdown-timer" id="countdown">02:00:00</div>
+                </div>
+                
+                <div class="warning-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Harap screenshot atau catat kode pembayaran ini sebelum keluar dari halaman ini!</p>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn-print" id="printBtn">Cetak Pembayaran</button>
+                <button class="btn-cancel" id="cancelBtn">Tutup</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
+    <script>
+        // Global variables
+        let countdownInterval;
+        let timeLeft = 2 * 60 * 60; // 2 hours in seconds
+        
+        // DOM elements
+        const modal = document.getElementById('paymentModal');
+        const showPaymentBtn = document.getElementById('showPaymentBtn');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const cancelBtn = document.getElementById('cancelBtn');
+        const copyCodeBtn = document.getElementById('copyCodeBtn');
+        const printBtn = document.getElementById('printBtn');
+        const countdownElement = document.getElementById('countdown');
+        const paymentCode = document.getElementById('paymentCode');
+        const toast = document.getElementById('toast');
+        
+        // Show modal
+        showPaymentBtn.addEventListener('click', function() {
+            modal.style.display = 'block';
+            startCountdown();
+        });
+        
+        // Close modal
+        closeBtn.addEventListener('click', function() {
+            closeModal();
+        });
+        
+        cancelBtn.addEventListener('click', function() {
+            closeModal();
+        });
+        
+        // Copy payment code
+        copyCodeBtn.addEventListener('click', function() {
+            const code = paymentCode.textContent.trim().replace('Salin', '').trim();
+            navigator.clipboard.writeText(code).then(function() {
+                showToast('Kode pembayaran disalin!');
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('Kode pembayaran disalin!');
+            });
+        });
+        
+        // Print payment details
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Countdown function
+        function startCountdown() {
+            // Clear any existing interval
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+            
+            // Reset time left
+            timeLeft = 2 * 60 * 60; // 2 hours in seconds
+            
+            // Update the countdown immediately
+            updateCountdown();
+            
+            // Set interval to update countdown every second
+            countdownInterval = setInterval(function() {
+                timeLeft--;
+                updateCountdown();
+                
+                // When time is up
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "Waktu Habis";
+                    countdownElement.style.color = "#d32f2f";
+                }
+            }, 1000);
+        }
+        
+        // Update countdown display
+        function updateCountdown() {
+            const hours = Math.floor(timeLeft / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+            
+            // Format with leading zeros
+            const formattedHours = hours.toString().padStart(2, '0');
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+            const formattedSeconds = seconds.toString().padStart(2, '0');
+            
+            countdownElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            
+            // Change color when less than 30 minutes
+            if (timeLeft < 30 * 60) {
+                countdownElement.style.color = "#d32f2f";
+            } else if (timeLeft < 60 * 60) {
+                countdownElement.style.color = "#ff9800";
+            }
+        }
+        
+        // Close modal function
+        function closeModal() {
+            modal.style.display = 'none';
+            // Don't clear the interval, keep it running in the background
+        }
+        
+        // Show toast notification
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Before unload warning
+        window.addEventListener('beforeunload', function(e) {
+            if (modal.style.display === 'block') {
+                const message = 'Anda yakin ingin keluar? Pastikan Anda telah mencatat atau meng screenshot kode pembayaran!';
+                e.returnValue = message;
+                return message;
+            }
+        });
+        
+        // Keep countdown running even when modal is closed
+        // This ensures the timer continues to count down in the background
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Page is hidden, continue countdown in background
+                // The interval is still running
+            } else {
+                // Page is visible again, update display
+                if (timeLeft > 0) {
+                    updateCountdown();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
